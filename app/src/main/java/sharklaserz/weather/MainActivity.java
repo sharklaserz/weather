@@ -2,38 +2,34 @@ package sharklaserz.weather;
 
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
-import java.net.URL;
+import com.squareup.otto.Subscribe;
 
-import sharklaserz.weather.services.weatherapi.AsyncResponse;
-import sharklaserz.weather.services.weatherapi.httpRequest;
+import sharklaserz.weather.services.weatherapi.WeatherWrapper;
+import sharklaserz.weather.tools.EventBus;
 
 
-public class MainActivity extends ActionBarActivity implements AsyncResponse {
+public class MainActivity extends ActionBarActivity {
 
-    TextView txView;
-    httpRequest httpInstance = new httpRequest();
+    public TextView txView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         txView = (TextView) findViewById(R.id.putDataHere);
-        httpInstance.delegate = this;
+        EventBus.getInstance().register(this);
     }
 
     protected void onStart() {
         super.onStart();
-        URL myUrl = null;
-        try {
-            myUrl = new URL("https://api.forecast.io/forecast/94c793f57c94d2ef0102edce1351d51d/37.8267,-122.423");
-        } catch (Exception e){}
-        httpInstance.execute(myUrl);
 
+        WeatherWrapper myWrapper = new WeatherWrapper();
+        myWrapper.getCurrentTemperature();
     }
 
     @Override
@@ -58,8 +54,9 @@ public class MainActivity extends ActionBarActivity implements AsyncResponse {
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    public void processFinish(String output) {
-        txView.setText(output);
+    @Subscribe
+    public void handleMyEvent(String response) {
+        txView.setText("Bye Felicia: " + response);
     }
+
 }
