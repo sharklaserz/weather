@@ -14,7 +14,8 @@ import sharklaserz.weather.tools.EventBus;
 
 public class MainActivity extends ActionBarActivity {
 
-    public TextView txView;
+    private TextView txView;
+    String forecast = "FORECASTIO"; //Temporary, this should be moved into a file that manages constant strings.
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,15 +29,16 @@ public class MainActivity extends ActionBarActivity {
     protected void onStart() {
         super.onStart();
 
-        WeatherWrapper myWrapper = new WeatherWrapper();
+        WeatherWrapper myWrapper = new WeatherWrapper(forecast, getApplicationContext());
         myWrapper.getCurrentTemperature();
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        //Temporarily setting this to false, as we are not interested in the contextual menu yet.
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
+        //getMenuInflater().inflate(R.menu.menu_main, menu);
+        return false;
     }
 
     @Override
