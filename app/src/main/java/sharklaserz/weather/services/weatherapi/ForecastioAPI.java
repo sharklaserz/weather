@@ -10,6 +10,7 @@ import com.loopj.android.http.JsonHttpResponseHandler;
 import org.apache.http.Header;
 import org.json.JSONObject;
 
+import sharklaserz.weather.model.WeatherRequestData;
 import sharklaserz.weather.tools.EventBus;
 
 /**
@@ -25,17 +26,11 @@ public class ForecastioAPI implements WeatherAPI {
 
 
     @Override
-    public void getCurrentTemperature(LocationManager locationManager) {
-
-        // Get Last known location from Location Manager
-        lastKnownLocation = locationManager.getLastKnownLocation(locationManager.GPS_PROVIDER);
-        double latitude = lastKnownLocation.getLatitude();
-        double longitude = lastKnownLocation.getLongitude();
-
+    public void getCurrentTemperature(WeatherRequestData requestData) {
 
         // Make HTTP Call
         //String URL = baseURL + "/" + apiKey + "/37.8267,-122.423";
-        String URL = baseURL + "/" + apiKey + "/" + latitude + "," + longitude;
+        String URL = baseURL + "/" + apiKey + "/" + requestData.latitude + "," + requestData.longitude;
         AsyncHttpClient client = new AsyncHttpClient();
         client.get(URL, new JsonHttpResponseHandler() {
 

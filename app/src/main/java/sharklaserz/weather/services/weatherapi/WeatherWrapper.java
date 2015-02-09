@@ -5,6 +5,8 @@ import android.content.Context;
 import android.location.Location;
 import android.location.LocationManager;
 
+import sharklaserz.weather.model.WeatherRequestData;
+
 /**
  * Created by toddish on 2/4/2015.
  */
@@ -35,18 +37,46 @@ public class WeatherWrapper {
         }
     }
 
-    public WeatherWrapper(String apiChosen, Context mContext)
-    {
+    public WeatherWrapper(String apiChosen, Context mContext){
+
         this(null);
         locationManager = (LocationManager)mContext.getSystemService(Context.LOCATION_SERVICE);
 
     }
 
+    private void setWeatherLocationData(WeatherRequestData requestData){
+
+        if(!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER))
+        {
+            //TODO: Insert toast message here...and better solution later
+            return;
+        }
+        Location lastKnownLocation = locationManager.getLastKnownLocation(locationManager.GPS_PROVIDER);
+        requestData.latitude = lastKnownLocation.getLatitude();
+        requestData.longitude = lastKnownLocation.getLongitude();
+    }
+
+    public boolean isValidLatitudeLongitude(double latitude, double longitude){
+        final double MAXIMUM_LATITUDE = 90.0;
+        final double MINIMUM_LATITUDE = -90.0;
+        final double MAXIMUM_LONGITUDE = 180.0;
+        final double MINIMUM_LONGITUDE = -180.0;
+        if((latitude <= MAXIMUM_LATITUDE && latitude >= MINIMUM_LATITUDE) && (longitude <= MAXIMUM_LONGITUDE && longitude >= MINIMUM_LONGITUDE)){
+            return true;
+        }
+        return false;
+    }
+
+    //Weather request functions
+    //Get Current Temperature requires Latitude, Longitude
     public void getCurrentTemperature() {
 
-        if(locationManager != null)
+        WeatherRequestData newRequest = new WeatherRequestData();
+        setWeatherLocationData(newRequest);
+        if(isValidLatitudeLongitude(newRequest.latitude, newRequest.longitude))
         {
-            myAPI.getCurrentTemperature(locationManager);
+            myAPI.getCurrentTemperature(newRequest);
         }
     }
+
 }
