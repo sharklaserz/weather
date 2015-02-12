@@ -1,5 +1,7 @@
 package sharklaserz.weather;
 
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -20,9 +22,12 @@ public class MainActivity extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.weather_home);
 
-        txView = (TextView) findViewById(R.id.putDataHere);
+        //txView = (TextView) findViewById(R.id.putDataHere);
+
+        //basic ui testing
+        txView = (TextView) findViewById(R.id.dispTemp);
         EventBus.getInstance().register(this);
     }
 
@@ -58,7 +63,7 @@ public class MainActivity extends ActionBarActivity {
 
     @Subscribe
     public void handleMyEvent(String response) {
-        txView.setText("Bye Felicia: " + response);
+        txView.setText(response);
     }
 
 }
