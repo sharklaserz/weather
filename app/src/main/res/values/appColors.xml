@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Primary app color definitions -->
+    <color name="primaryColor">#607D8B</color>
+    <color name="primaryColorDark">#455A64</color>
+    <color name="primaryColorLight">#B0BEC5</color>
+
+    <!-- Accent app color definitions -->
+    <color name="accentColor">#FFEA00</color>
+    <color name="accentColorDark">#FFFF8D</color>
+</resources>
