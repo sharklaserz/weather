@@ -1,4 +1,4 @@
-package sharklaserz.weather;
+package sharklaserz.weather.base;
 
 
 import android.util.Log;
@@ -7,15 +7,16 @@ import javax.inject.Singleton;
 
 import dagger.Provides;
 import retrofit.RestAdapter;
-import sharklaserz.weather.loader.ItemsLoader;
-import sharklaserz.weather.loader.ServerAPI;
+import sharklaserz.weather.MainActivity;
+import sharklaserz.weather.loader.ForecastIOAPI;
+import sharklaserz.weather.loader.TemperatureLoader;
 import sharklaserz.weather.presenter.MainPresenter;
 
 
 @dagger.Module(injects = {
         MainPresenter.class,
         MainActivity.class,
-        ItemsLoader.class
+        TemperatureLoader.class
 })
 public class AppModule {
 
@@ -27,9 +28,9 @@ public class AppModule {
 
     @Provides
     @Singleton
-    ServerAPI provideServerAPI() {
+    ForecastIOAPI provideServerAPI() {
         return new RestAdapter.Builder()
-                .setEndpoint(ServerAPI.ENDPOINT)
+                .setEndpoint(ForecastIOAPI.ENDPOINT)
                 .setLogLevel(RestAdapter.LogLevel.FULL)
                 .setLog(new RestAdapter.Log() {
                     @Override
@@ -37,6 +38,6 @@ public class AppModule {
                         Log.v("Retrofit", message);
                     }
                 })
-                .build().create(ServerAPI.class);
+                .build().create(ForecastIOAPI.class);
     }
 }

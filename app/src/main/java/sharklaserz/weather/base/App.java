@@ -1,8 +1,7 @@
-package sharklaserz.weather;
+package sharklaserz.weather.base;
 
 import android.app.Application;
 
-import android.util.Log;
 import android.widget.Toast;
 import dagger.ObjectGraph;
 
@@ -18,7 +17,6 @@ public class App extends Application {
     }
 
     public static void reportError(String description) {
-        Log.d("ERRORORRORORORORORORORRO", description);
         Toast.makeText(instance, description, Toast.LENGTH_LONG).show();
     }
 }

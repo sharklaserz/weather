@@ -1,28 +1,22 @@
 package sharklaserz.weather;
 
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
-import org.json.JSONObject;
-
 import nucleus.presenter.PresenterCreator;
-import nucleus.view.NucleusActivity;
-import sharklaserz.weather.loader.ServerAPI;
+import sharklaserz.weather.loader.ForecastIOAPI;
 import sharklaserz.weather.presenter.MainPresenter;
 
 
-public class MainActivity extends NucleusActivity<MainPresenter> {
+public class MainActivity extends NucleusActionBarActivity {
 
     private TextView txView;
-    String forecast = "FORECASTIO"; //Temporary, this should be moved into a file that manages constant strings.
 
     @Override
     protected PresenterCreator<MainPresenter> getPresenterCreator() {
-        return new PresenterCreator<MainPresenter>() {
+       return new PresenterCreator<MainPresenter>() {
             @Override
             public MainPresenter createPresenter() {
                 return new MainPresenter();
@@ -30,24 +24,12 @@ public class MainActivity extends NucleusActivity<MainPresenter> {
         };
     }
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.weather_home);
 
-        //txView = (TextView) findViewById(R.id.putDataHere);
-
-        //basic ui testing
         txView = (TextView) findViewById(R.id.dispTemp);
-        //EventBus.getInstance().register(this);
-    }
-
-    protected void onStart() {
-        super.onStart();
-
-        //WeatherWrapper myWrapper = new WeatherWrapper(forecast, getApplicationContext());
-        //myWrapper.getCurrentTemperature();
     }
 
     @Override
@@ -73,29 +55,10 @@ public class MainActivity extends NucleusActivity<MainPresenter> {
         return super.onOptionsItemSelected(item);
     }
 
-    public void publishItems(ServerAPI.MyTemp items, String user) {
+    public void publishItems(ForecastIOAPI.ForecastIOTemperature temperature) {
 
-        /*
-        ListView listView = (ListView)findViewById(R.id.listView);
-
-        if (items == null) {
-            listView.setVisibility(View.INVISIBLE);
-            return;
-        }
-
-        ViewFn.fadeIn(listView);
-
-        check1.setChecked(user.equals(MainPresenter.NAME_1));
-        check2.setChecked(user.equals(MainPresenter.NAME_2));
-
-        listView.setAdapter(new ArrayAdapter<ServerAPI.Item>(this, R.layout.item, items));
-        */
-
-        if(items != null) {
-            txView.setText(items.toString());
-        } else {
-            Log.d("WHHHHHHHH", "WAS NULL");
+        if(temperature != null) {
+            txView.setText(temperature.toString());
         }
     }
-
 }

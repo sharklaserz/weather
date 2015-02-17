@@ -29,10 +29,8 @@ public class WeatherWrapper {
 
         switch (apiToUse) {
             case "FORECASTIO":
-                myAPI = new ForecastioAPI();
                 break;
             default:
-                myAPI = new ForecastioAPI();
                 break;
         }
     }

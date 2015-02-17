@@ -2,7 +2,7 @@ package sharklaserz.weather.loader;
 
 import javax.inject.Inject;
 
-import sharklaserz.weather.App;
+import sharklaserz.weather.base.App;
 import nucleus.model.Loader;
 import retrofit.Callback;
 import retrofit.RetrofitError;
@@ -10,14 +10,14 @@ import retrofit.client.Response;
 
 public abstract class RetrofitLoader<ResponseT> extends Loader<ResponseT> {
 
-    @Inject protected ServerAPI api;
+    @Inject protected ForecastIOAPI api;
 
     protected int request;
 
     public RetrofitLoader() {
     }
 
-    protected void request() {
+    protected void retroRequest() {
         final int r = ++request;
 
         doRequest(new Callback<ResponseT>() {

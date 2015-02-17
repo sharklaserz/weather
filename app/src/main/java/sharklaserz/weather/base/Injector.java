@@ -1,10 +1,9 @@
-package sharklaserz.weather;
+package sharklaserz.weather.base;
 
 import dagger.ObjectGraph;
 
-import java.util.HashMap;
-
 public class Injector {
+
     private static ObjectGraph graph;
 
     public static void setGraph(ObjectGraph graph) {
