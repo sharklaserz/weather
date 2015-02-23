@@ -1,41 +1,35 @@
 package sharklaserz.weather;
 
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
-import com.squareup.otto.Subscribe;
+import nucleus.presenter.PresenterCreator;
+import sharklaserz.weather.loader.ForecastIOAPI;
+import sharklaserz.weather.presenter.MainPresenter;
 
-import sharklaserz.weather.services.weatherapi.WeatherWrapper;
-import sharklaserz.weather.tools.EventBus;
 
-
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends NucleusActionBarActivity {
 
     private TextView txView;
-    String forecast = "FORECASTIO"; //Temporary, this should be moved into a file that manages constant strings.
+
+    @Override
+    protected PresenterCreator<MainPresenter> getPresenterCreator() {
+       return new PresenterCreator<MainPresenter>() {
+            @Override
+            public MainPresenter createPresenter() {
+                return new MainPresenter();
+            }
+        };
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.weather_home);
 
-        //txView = (TextView) findViewById(R.id.putDataHere);
-
-        //basic ui testing
         txView = (TextView) findViewById(R.id.dispTemp);
-        EventBus.getInstance().register(this);
-    }
-
-    protected void onStart() {
-        super.onStart();
-
-        WeatherWrapper myWrapper = new WeatherWrapper(forecast, getApplicationContext());
-        myWrapper.getCurrentTemperature();
     }
 
     @Override
@@ -61,9 +55,10 @@ public class MainActivity extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    @Subscribe
-    public void handleMyEvent(String response) {
-        txView.setText(response);
-    }
+    public void publishItems(ForecastIOAPI.ForecastIOTemperature temperature) {
 
+        if(temperature != null) {
+            txView.setText(temperature.toString());
+        }
+    }
 }
