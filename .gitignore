@@ -27,7 +27,7 @@ proguard/
 
 #Android Studio
 .idea/
+*.iml
 
 #Windows
 .DS_Store
-WeatherDatStuff.iml
