@@ -55,10 +55,11 @@ public class MainActivity extends NucleusActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void publishItems(ForecastIOAPI.ForecastIOTemperature temperature) {
+    public void publishItems(ForecastIOAPI.Response response) {
 
-        if(temperature != null) {
-            txView.setText(temperature.toString());
+        if(response != null) {
+
+            txView.setText("" + response.currently.temperature);
         }
     }
 }
