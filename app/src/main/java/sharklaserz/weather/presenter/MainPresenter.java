@@ -27,12 +27,12 @@ public class MainPresenter extends Presenter<MainActivity> {
         addViewBroker(new LoaderBroker<MainActivity>(temperatureLoader) {
             @Override
             protected void onPresent(MainActivity target) {
-                target.publishItems(!isLoadingComplete() ? null : getData(temperatureLoader).myCurrently);
+                target.publishItems(!isLoadingComplete() ? null : getData(temperatureLoader));
             }
         });
 
         //Need to replace with get from GPS
-        double latitude = 41.956;
+        double latitude = 42.956;
         double longitude = -87.654;
         temperatureLoader.request(latitude, longitude);
     }
