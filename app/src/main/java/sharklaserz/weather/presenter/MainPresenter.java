@@ -1,13 +1,9 @@
 package sharklaserz.weather.presenter;
 
 
-import android.app.Activity;
 import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.Toast;
-
-import com.google.android.gms.common.api.GoogleApiClient;
 
 import javax.inject.Inject;
 
@@ -18,8 +14,8 @@ import sharklaserz.weather.MainActivity;
 import sharklaserz.weather.loader.LogBroker;
 import sharklaserz.weather.loader.TemperatureLoader;
 
-import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient.ConnectionCallbacks;
 import com.google.android.gms.common.api.GoogleApiClient.OnConnectionFailedListener;
 import com.google.android.gms.location.LocationServices;
@@ -57,11 +53,6 @@ public class MainPresenter extends Presenter<MainActivity> implements Connection
             }
         });
 
-
-        //Need to replace with get from GPS
-        //double latitude = 42.956;
-        //double longitude = -87.654;
-        //temperatureLoader.request(latitude, longitude);
     }
 
 
@@ -85,6 +76,11 @@ public class MainPresenter extends Presenter<MainActivity> implements Connection
         {
             googleApiClient = clientReference;
         }
+    }
+
+    public GoogleApiClient getGoogleApiClient()
+    {
+        return googleApiClient;
     }
 
     //Google Location API Call back functions

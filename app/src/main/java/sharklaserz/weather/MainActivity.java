@@ -8,7 +8,7 @@ import android.widget.TextView;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationServices;
 
-import nucleus.presenter.Presenter;
+
 import nucleus.presenter.PresenterCreator;
 import sharklaserz.weather.loader.ForecastIOAPI;
 import sharklaserz.weather.presenter.MainPresenter;
@@ -17,7 +17,7 @@ import sharklaserz.weather.presenter.MainPresenter;
 public class MainActivity extends NucleusActionBarActivity {
 
     private TextView txView;
-    protected GoogleApiClient googleApiClient;
+
 
     @Override
     protected PresenterCreator<MainPresenter> getPresenterCreator() {
@@ -35,7 +35,6 @@ public class MainActivity extends NucleusActionBarActivity {
         setContentView(R.layout.weather_home);
 
         buildGoogleApiClient();
-        ((MainPresenter)getPresenter()).setGoogleApiClient(googleApiClient);
         txView = (TextView) findViewById(R.id.dispTemp);
 
     }
@@ -46,7 +45,6 @@ public class MainActivity extends NucleusActionBarActivity {
         super.onStart();
         MainPresenter currentPresenter = (MainPresenter)getPresenter();
         currentPresenter.onStart();
-
     }
 
     @Override
@@ -88,13 +86,25 @@ public class MainActivity extends NucleusActionBarActivity {
         }
     }
 
+    //
     protected synchronized void buildGoogleApiClient() {
 
-        googleApiClient = new GoogleApiClient.Builder(this)
-                .addConnectionCallbacks((MainPresenter)getPresenter())
-                .addOnConnectionFailedListener((MainPresenter)getPresenter())
-                .addApi(LocationServices.API)
-                .build();
+        GoogleApiClient googleApiClient;
+
+        if(((MainPresenter)getPresenter()).getGoogleApiClient() == null)
+        {
+            googleApiClient = new GoogleApiClient.Builder(this)
+                    .addConnectionCallbacks((MainPresenter)getPresenter())
+                    .addOnConnectionFailedListener((MainPresenter)getPresenter())
+                    .addApi(LocationServices.API)
+                    .build();
+            ((MainPresenter)getPresenter()).setGoogleApiClient(googleApiClient);
+        }
+        else
+        {
+            googleApiClient = ((MainPresenter)getPresenter()).getGoogleApiClient();
+        }
+
     }
 
 
