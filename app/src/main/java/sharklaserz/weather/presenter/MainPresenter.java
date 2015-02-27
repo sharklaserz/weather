@@ -30,13 +30,6 @@ public class MainPresenter extends Presenter<MainActivity> implements Connection
 
     //Location variables
     protected Location locationData;
-    protected double latitude;
-    protected double longitude;
-
-    @Override
-    public MainActivity getView() {
-        return super.getView();
-    }
 
     @Override
     protected void onCreate(Bundle savedState) {
@@ -52,15 +45,12 @@ public class MainPresenter extends Presenter<MainActivity> implements Connection
                 target.publishItems(!isLoadingComplete() ? null : getData(temperatureLoader));
             }
         });
-
     }
-
 
     public void onStart()
     {
         googleApiClient.connect();
     }
-
 
     public void onStop()
     {
@@ -92,14 +82,15 @@ public class MainPresenter extends Presenter<MainActivity> implements Connection
         // in rare cases when a location is not available.
         locationData = LocationServices.FusedLocationApi.getLastLocation(googleApiClient);
         if (locationData != null) {
-            latitude = locationData.getLatitude();
-            longitude = locationData.getLongitude();
+            double latitude = locationData.getLatitude();
+            double longitude = locationData.getLongitude();
             temperatureLoader.request(latitude,longitude);
         } else {
             //TODO: Error handling for location data being null.
             //Toast.makeText(this, R.string.no_location_detected, Toast.LENGTH_LONG).show();
         }
     }
+
     @Override
     public void onConnectionFailed(ConnectionResult result) {
         // Refer to the javadoc for ConnectionResult to see what error codes might be returned in
@@ -107,7 +98,6 @@ public class MainPresenter extends Presenter<MainActivity> implements Connection
         //TODO: Create custom error handling.
         Log.i(TAG, "Connection failed: ConnectionResult.getErrorCode() = " + result.getErrorCode());
     }
-
 
     @Override
     public void onConnectionSuspended(int cause) {
@@ -117,6 +107,4 @@ public class MainPresenter extends Presenter<MainActivity> implements Connection
         Log.i(TAG, "Connection suspended");
         googleApiClient.connect();
     }
-
-
 }

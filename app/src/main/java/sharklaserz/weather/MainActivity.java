@@ -8,7 +8,6 @@ import android.widget.TextView;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationServices;
 
-
 import nucleus.presenter.PresenterCreator;
 import sharklaserz.weather.loader.ForecastIOAPI;
 import sharklaserz.weather.presenter.MainPresenter;
@@ -17,7 +16,6 @@ import sharklaserz.weather.presenter.MainPresenter;
 public class MainActivity extends NucleusActionBarActivity {
 
     private TextView txView;
-
 
     @Override
     protected PresenterCreator<MainPresenter> getPresenterCreator() {
@@ -86,7 +84,6 @@ public class MainActivity extends NucleusActionBarActivity {
         }
     }
 
-    //
     protected synchronized void buildGoogleApiClient() {
 
         GoogleApiClient googleApiClient;
@@ -104,8 +101,5 @@ public class MainActivity extends NucleusActionBarActivity {
         {
             googleApiClient = ((MainPresenter)getPresenter()).getGoogleApiClient();
         }
-
     }
-
-
 }
