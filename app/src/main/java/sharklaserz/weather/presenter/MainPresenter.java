@@ -28,7 +28,6 @@ public class MainPresenter extends Presenter<MainActivity> implements Connection
     private final String TAG = "Main_Presenter";
     protected GoogleApiClient googleApiClient;
 
-    //Location variables
     protected Location locationData;
 
     @Override
