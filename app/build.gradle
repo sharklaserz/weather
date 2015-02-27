@@ -26,5 +26,6 @@ dependencies {
     compile 'info.android15.nucleus:nucleus:0.2+'
     compile 'com.squareup.retrofit:retrofit:1.9.0'
     compile 'com.squareup.dagger:dagger:1.2.2'
+    compile 'com.google.android.gms:play-services:6.5.87'
     provided 'com.squareup.dagger:dagger-compiler:1.2.1'
 }
