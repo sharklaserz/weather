@@ -5,6 +5,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.LocationServices;
+
 import nucleus.presenter.PresenterCreator;
 import sharklaserz.weather.loader.ForecastIOAPI;
 import sharklaserz.weather.presenter.MainPresenter;
@@ -29,7 +32,25 @@ public class MainActivity extends NucleusActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.weather_home);
 
+        buildGoogleApiClient();
         txView = (TextView) findViewById(R.id.dispTemp);
+
+    }
+
+    @Override
+    public void onStart()
+    {
+        super.onStart();
+        MainPresenter currentPresenter = (MainPresenter)getPresenter();
+        currentPresenter.onStart();
+    }
+
+    @Override
+    public void onStop()
+    {
+        super.onStop();
+        MainPresenter currentPresenter = (MainPresenter)getPresenter();
+        currentPresenter.onStop();
     }
 
     @Override
@@ -60,6 +81,25 @@ public class MainActivity extends NucleusActionBarActivity {
         if(response != null) {
 
             txView.setText("" + response.currently.temperature);
+        }
+    }
+
+    protected synchronized void buildGoogleApiClient() {
+
+        GoogleApiClient googleApiClient;
+
+        if(((MainPresenter)getPresenter()).getGoogleApiClient() == null)
+        {
+            googleApiClient = new GoogleApiClient.Builder(this)
+                    .addConnectionCallbacks((MainPresenter)getPresenter())
+                    .addOnConnectionFailedListener((MainPresenter)getPresenter())
+                    .addApi(LocationServices.API)
+                    .build();
+            ((MainPresenter)getPresenter()).setGoogleApiClient(googleApiClient);
+        }
+        else
+        {
+            googleApiClient = ((MainPresenter)getPresenter()).getGoogleApiClient();
         }
     }
 }
