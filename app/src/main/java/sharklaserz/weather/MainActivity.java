@@ -10,6 +10,7 @@ import com.google.android.gms.location.LocationServices;
 
 import nucleus.presenter.PresenterCreator;
 import sharklaserz.weather.loader.ForecastIOAPI;
+import sharklaserz.weather.model.ResponseBody;
 import sharklaserz.weather.presenter.MainPresenter;
 
 
@@ -76,7 +77,7 @@ public class MainActivity extends NucleusActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void publishItems(ForecastIOAPI.Response response) {
+    public void publishItems(ResponseBody response) {
 
         if(response != null) {
 
