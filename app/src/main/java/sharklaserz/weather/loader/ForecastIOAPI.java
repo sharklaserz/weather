@@ -8,8 +8,8 @@ import sharklaserz.weather.model.ResponseBody;
 
 public interface ForecastIOAPI {
 
-    public static final String apiKey = "1d454a06cbec825829cf04cf8bdcd4ac";
-    public static final String ENDPOINT = "https://api.forecast.io/forecast/" + apiKey;
+    public static final String API_KEY = "1d454a06cbec825829cf04cf8bdcd4ac";
+    public static final String ENDPOINT = "https://api.forecast.io/forecast/" + API_KEY;
 
 
     @GET("/{latitude},{longitude}")
