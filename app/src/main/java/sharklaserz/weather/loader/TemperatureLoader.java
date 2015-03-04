@@ -34,7 +34,6 @@ public class TemperatureLoader extends Loader<ResponseBody> {
            cache = new Cache(cacheDir, CACHE_SIZE);
         } catch (IOException ioe) {
             App.reportError(ioe.toString());
-            Log.w("IOE", ioe);
         }
 
         OkHttpClient okHttpClient = new OkHttpClient();

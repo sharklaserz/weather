@@ -3,7 +3,9 @@ package sharklaserz.weather.base;
 import android.app.Application;
 
 import android.content.Context;
+import android.util.Log;
 import android.widget.Toast;
+
 
 public class App extends Application {
 
@@ -17,6 +19,7 @@ public class App extends Application {
     }
 
     public static void reportError(String description) {
+        Log.d("REPORTED_ERROR", description);
         Toast.makeText(instance, description, Toast.LENGTH_LONG).show();
     }
 
