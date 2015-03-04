@@ -66,7 +66,7 @@ public class TemperatureLoader extends Loader<ResponseBody> {
             @Override
             public void success(ResponseBody responseBody, retrofit.client.Response response) {
 
-                // Call registered presenter's onPresent() because data of this type is available
+                // Call registered loader's onPresent() because data of this type is available
                 notifyReceivers(responseBody);
             }
 
