@@ -9,7 +9,7 @@ import nucleus.presenter.Presenter;
 import nucleus.presenter.broker.LoaderBroker;
 import sharklaserz.weather.MainActivity;
 import sharklaserz.weather.loader.LogBroker;
-import sharklaserz.weather.loader.TemperatureLoader;
+import sharklaserz.weather.loader.WeatherLoader;
 
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.ConnectionResult;
@@ -20,7 +20,7 @@ import com.google.android.gms.location.LocationServices;
 
 public class MainPresenter extends Presenter<MainActivity> implements ConnectionCallbacks, OnConnectionFailedListener {
 
-    TemperatureLoader temperatureLoader = new TemperatureLoader();
+    WeatherLoader weatherLoader = WeatherLoader.getInstance();
 
     private final String TAG = "Main_Presenter";
     protected GoogleApiClient googleApiClient;
@@ -33,10 +33,10 @@ public class MainPresenter extends Presenter<MainActivity> implements Connection
         addPresenterBroker(new LogBroker());
         addViewBroker(new LogBroker());
 
-        addViewBroker(new LoaderBroker<MainActivity>(temperatureLoader) {
+        addViewBroker(new LoaderBroker<MainActivity>(weatherLoader) {
             @Override
             protected void onPresent(MainActivity target) {
-                target.publishItems(!isLoadingComplete() ? null : getData(temperatureLoader));
+                target.publishItems(!isLoadingComplete() ? null : getData(weatherLoader));
             }
         });
     }
@@ -78,7 +78,7 @@ public class MainPresenter extends Presenter<MainActivity> implements Connection
         if (locationData != null) {
             double latitude = locationData.getLatitude();
             double longitude = locationData.getLongitude();
-            temperatureLoader.getCurrentTempAt(latitude, longitude);
+            weatherLoader.getCurrentWeatherAt(latitude, longitude);
         } else {
             //TODO: Error handling for location data being null.
             //Toast.makeText(this, R.string.no_location_detected, Toast.LENGTH_LONG).show();

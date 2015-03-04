@@ -17,13 +17,22 @@ import retrofit.client.OkClient;
 import sharklaserz.weather.base.App;
 import sharklaserz.weather.model.ResponseBody;
 
+public class WeatherLoader extends Loader<ResponseBody> {
 
-public class TemperatureLoader extends Loader<ResponseBody> {
-
+    private static WeatherLoader ourInstance = null;
     protected ForecastIOAPI api;
     private static int CACHE_SIZE = 10 * 1024 * 1024; // 10 MiB ~ 10 MB
 
-    public TemperatureLoader() {
+    public static WeatherLoader getInstance() {
+
+        if (ourInstance == null) {
+            ourInstance = new WeatherLoader();
+        }
+
+        return ourInstance;
+    }
+
+    private WeatherLoader() {
 
         // Create a cache file for the http client to use
 
@@ -31,7 +40,7 @@ public class TemperatureLoader extends Loader<ResponseBody> {
         Cache cache = null;
 
         try {
-           cache = new Cache(cacheDir, CACHE_SIZE);
+            cache = new Cache(cacheDir, CACHE_SIZE);
         } catch (IOException ioe) {
             App.reportError(ioe.toString());
         }
@@ -59,9 +68,9 @@ public class TemperatureLoader extends Loader<ResponseBody> {
 
     // Forecast IO API calls
 
-    public void getCurrentTempAt(double latitude, double longitude) {
+    public void getCurrentWeatherAt(double latitude, double longitude) {
 
-        api.getCurrentTemperature(latitude, longitude, new Callback<ResponseBody>() {
+        api.getCurrentWeather(latitude, longitude, new Callback<ResponseBody>() {
 
             @Override
             public void success(ResponseBody responseBody, retrofit.client.Response response) {

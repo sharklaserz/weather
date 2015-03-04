@@ -13,5 +13,5 @@ public interface ForecastIOAPI {
 
 
     @GET("/{latitude},{longitude}")
-    void getCurrentTemperature(@Path("latitude") double latitude, @Path("longitude") double longitude, Callback<ResponseBody> callback);
+    void getCurrentWeather(@Path("latitude") double latitude, @Path("longitude") double longitude, Callback<ResponseBody> callback);
 }
