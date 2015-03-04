@@ -42,7 +42,6 @@ public class TemperatureLoader extends Loader<ResponseBody> {
             okHttpClient.setCache(cache);
         }
 
-
         // Create and configure Retrofit object for ForecastIO, to make API calls from
 
         api = new RestAdapter.Builder()
