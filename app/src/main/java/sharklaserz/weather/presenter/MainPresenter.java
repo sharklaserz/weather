@@ -5,11 +5,8 @@ import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
 
-import javax.inject.Inject;
-
 import nucleus.presenter.Presenter;
 import nucleus.presenter.broker.LoaderBroker;
-import sharklaserz.weather.base.Injector;
 import sharklaserz.weather.MainActivity;
 import sharklaserz.weather.loader.LogBroker;
 import sharklaserz.weather.loader.TemperatureLoader;
@@ -23,7 +20,7 @@ import com.google.android.gms.location.LocationServices;
 
 public class MainPresenter extends Presenter<MainActivity> implements ConnectionCallbacks, OnConnectionFailedListener {
 
-    @Inject TemperatureLoader temperatureLoader;
+    TemperatureLoader temperatureLoader = new TemperatureLoader();
 
     private final String TAG = "Main_Presenter";
     protected GoogleApiClient googleApiClient;
@@ -32,8 +29,6 @@ public class MainPresenter extends Presenter<MainActivity> implements Connection
 
     @Override
     protected void onCreate(Bundle savedState) {
-
-        Injector.inject(this);
 
         addPresenterBroker(new LogBroker());
         addViewBroker(new LogBroker());
@@ -83,7 +78,7 @@ public class MainPresenter extends Presenter<MainActivity> implements Connection
         if (locationData != null) {
             double latitude = locationData.getLatitude();
             double longitude = locationData.getLongitude();
-            temperatureLoader.request(latitude,longitude);
+            temperatureLoader.getCurrentTempAt(latitude, longitude);
         } else {
             //TODO: Error handling for location data being null.
             //Toast.makeText(this, R.string.no_location_detected, Toast.LENGTH_LONG).show();
