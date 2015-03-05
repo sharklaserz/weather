@@ -36,7 +36,6 @@ public class BasicWeatherAdapter extends RecyclerView.Adapter<BasicWeatherAdapte
 
         TextView temperatureTextView = holder.currentTemperatureTextView;
         TextView cardNumberTextView = holder.cardNumberTextView;
-        ResponseBody cardData = holder.cardData;
 
         temperatureTextView.setText("" + weatherData.get(listPosition).currently.temperature);
         cardNumberTextView.setText("" + (listPosition+1));
