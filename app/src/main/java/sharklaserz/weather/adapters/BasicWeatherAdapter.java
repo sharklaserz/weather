@@ -17,20 +17,6 @@ public class BasicWeatherAdapter extends RecyclerView.Adapter<BasicWeatherAdapte
 
     private ArrayList<ResponseBody> weatherData;
 
-    public static class BasicWeatherViewHolder extends RecyclerView.ViewHolder{
-
-        TextView currentTemperatureTextView;
-        TextView cardNumberTextView;
-        ResponseBody cardData;
-
-        public BasicWeatherViewHolder(View itemView){
-
-            super(itemView);
-            this.currentTemperatureTextView = (TextView) itemView.findViewById(R.id.dispTemp);
-            this.cardNumberTextView = (TextView) itemView.findViewById(R.id.itemCounter);
-        }
-    }
-
     public BasicWeatherAdapter(ArrayList<ResponseBody> weatherData){
 
         this.weatherData = weatherData;
@@ -45,13 +31,13 @@ public class BasicWeatherAdapter extends RecyclerView.Adapter<BasicWeatherAdapte
         return myViewHolder;
     }
 
+    //Use this to set the values in the views defined by the cards in the holders.
     public void onBindViewHolder(final BasicWeatherViewHolder holder, final int listPosition) {
 
         TextView temperatureTextView = holder.currentTemperatureTextView;
         TextView cardNumberTextView = holder.cardNumberTextView;
         ResponseBody cardData = holder.cardData;
 
-        //Set values for cards
         temperatureTextView.setText("" + weatherData.get(listPosition).currently.temperature);
         cardNumberTextView.setText("" + (listPosition+1));
     }
@@ -61,4 +47,18 @@ public class BasicWeatherAdapter extends RecyclerView.Adapter<BasicWeatherAdapte
         return weatherData.size();
     }
 
+    //Nested class to define the ViewHolder required by the Adapter.
+    public static class BasicWeatherViewHolder extends RecyclerView.ViewHolder{
+
+        TextView currentTemperatureTextView;
+        TextView cardNumberTextView;
+        ResponseBody cardData;
+
+        public BasicWeatherViewHolder(View itemView){
+
+            super(itemView);
+            this.currentTemperatureTextView = (TextView) itemView.findViewById(R.id.dispTemp);
+            this.cardNumberTextView = (TextView) itemView.findViewById(R.id.itemCounter);
+        }
+    }
 }

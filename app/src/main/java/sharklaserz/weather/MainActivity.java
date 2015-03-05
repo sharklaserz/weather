@@ -117,7 +117,7 @@ public class MainActivity extends NucleusActionBarActivity {
 
         mRecyclerView = (RecyclerView)findViewById(R.id.weather_home_recycle_view);
         mRecyclerView.setHasFixedSize(true);
-        mRecyclerView.setLayoutManager( new LinearLayoutManager(this));
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
     }
 
@@ -139,16 +139,19 @@ public class MainActivity extends NucleusActionBarActivity {
         }
 
         @Override
-        public void onClick(View v){
+        public void onClick(View view){
 
-            selectBasicWeatherCard(v);
+            selectBasicWeatherCard(view);
         }
 
         private void selectBasicWeatherCard(View view){
+
+            //Based on the card clicked, have the Recyclerview give us data from that card.
             int selectedItemPosition = mRecyclerView.getChildPosition(view);
             RecyclerView.ViewHolder viewHolder = mRecyclerView.findViewHolderForPosition(selectedItemPosition);
             TextView itemCounterView = (TextView) viewHolder.itemView.findViewById(R.id.itemCounter);
             ResponseBody cardData = weatherData.get(selectedItemPosition);
+
             String message = "Card number: " + itemCounterView.getText() + " || Temp: " + cardData.currently.temperature;
             Toast.makeText(this.context, message, Toast.LENGTH_LONG).show();
         }
