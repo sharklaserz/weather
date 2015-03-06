@@ -8,24 +8,30 @@ import com.squareup.okhttp.OkHttpClient;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import nucleus.model.Loader;
 import retrofit.Callback;
 import retrofit.RestAdapter;
 import retrofit.RetrofitError;
 import retrofit.client.OkClient;
+import retrofit.client.Response;
 import sharklaserz.weather.base.App;
 import sharklaserz.weather.model.ResponseBody;
+import sharklaserz.weather.model.WeatherLocation;
 
-public class WeatherLoader extends Loader<ResponseBody> {
+public class WeatherLoader extends Loader<ArrayList<ResponseBody>> {
 
     private static WeatherLoader ourInstance = null;
     protected ForecastIOAPI api;
+    public static ArrayList<ResponseBody> responseList = null;
+    public int responseListSize = 0;
     private static int CACHE_SIZE = 10 * 1024 * 1024; // 10 MiB ~ 10 MB
 
     public static WeatherLoader getInstance() {
 
         if (ourInstance == null) {
+            responseList = new ArrayList<>();
             ourInstance = new WeatherLoader();
         }
 
@@ -68,21 +74,32 @@ public class WeatherLoader extends Loader<ResponseBody> {
 
     // Forecast IO API calls
 
-    public void getCurrentWeatherAt(double latitude, double longitude) {
+    public void getCurrentWeatherList(ArrayList<WeatherLocation> locations) {
 
-        api.getCurrentWeather(latitude, longitude, new Callback<ResponseBody>() {
+        responseList.clear();
+        responseListSize = locations.size();
 
-            @Override
-            public void success(ResponseBody responseBody, retrofit.client.Response response) {
+        for (int i = 0; i < locations.size(); i++) {
+            WeatherLocation theLocation = locations.get(i);
+            api.getCurrentWeather(theLocation.latitude, theLocation.longitude, new Callback<ResponseBody>() {
 
-                // Call registered loader's onPresent() because data of this type is available
-                notifyReceivers(responseBody);
-            }
+                @Override
+                public void success(ResponseBody responseBody, Response response) {
 
-            @Override
-            public void failure(RetrofitError error) {
-                App.reportError(error.getMessage());
-            }
-        });
+                    WeatherLoader theLoader = WeatherLoader.getInstance();
+                    theLoader.responseList.add(responseBody);
+
+                    if(theLoader.responseList.size() == theLoader.responseListSize) {
+                        notifyReceivers(theLoader.responseList);
+                    }
+                }
+
+                @Override
+                public void failure(RetrofitError error) {
+
+                    App.reportError(error.getMessage());
+                }
+            });
+        }
     }
 }
