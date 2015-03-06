@@ -1,7 +1,8 @@
 package sharklaserz.weather.model;
 
+import java.io.Serializable;
 
-public class Hourly {
+public class Hourly implements Serializable {
 
     public String summary;
     public String icon;

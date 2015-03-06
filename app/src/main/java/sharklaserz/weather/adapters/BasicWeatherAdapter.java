@@ -8,7 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import sharklaserz.weather.MainActivity;
+import sharklaserz.weather.activity.MainActivity;
 import sharklaserz.weather.R;
 import sharklaserz.weather.model.ResponseBody;
 

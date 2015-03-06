@@ -1,10 +1,5 @@
-package sharklaserz.weather;
+package sharklaserz.weather.activity;
 
-import nucleus.view.NucleusActivity;
-
-/**
- * Created by toddish on 2/16/2015.
- */
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 
@@ -13,7 +8,7 @@ import nucleus.presenter.PresenterCreator;
 import nucleus.view.PresenterFinder;
 import nucleus.view.PresenterProvider;
 
-@SuppressWarnings("unchecked")
+
 public class NucleusActionBarActivity<PresenterType extends Presenter> extends ActionBarActivity implements PresenterProvider<PresenterType> {
 
     private static final String PRESENTER_STATE_KEY = "presenter_state";

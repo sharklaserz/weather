@@ -9,7 +9,7 @@ import android.util.Log;
 
 import nucleus.presenter.Presenter;
 import nucleus.presenter.broker.LoaderBroker;
-import sharklaserz.weather.MainActivity;
+import sharklaserz.weather.activity.MainActivity;
 import sharklaserz.weather.R;
 import sharklaserz.weather.base.App;
 import sharklaserz.weather.loader.LogBroker;

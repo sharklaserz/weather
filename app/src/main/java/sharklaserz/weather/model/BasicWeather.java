@@ -1,7 +1,8 @@
 package sharklaserz.weather.model;
 
+import java.io.Serializable;
 
-public class BasicWeather {
+public class BasicWeather implements Serializable {
     public long time;
     public String summary;
     public String icon;

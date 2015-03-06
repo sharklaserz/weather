@@ -1,7 +1,8 @@
 package sharklaserz.weather.model;
 
+import java.io.Serializable;
 
-public class MinutelyData {
+public class MinutelyData implements Serializable {
 
     public long time;
     public double precipIntensity;
