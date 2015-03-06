@@ -22,7 +22,6 @@ import sharklaserz.weather.presenter.MainPresenter;
 
 public class MainActivity extends NucleusActionBarActivity {
 
-    private static ArrayList<ResponseBody> weatherData;
     public static View.OnClickListener cardClickListener;
     private static RecyclerView mRecyclerView;
 
@@ -85,12 +84,10 @@ public class MainActivity extends NucleusActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void publishItems(ResponseBody response) {
+    public void publishItems(ArrayList<ResponseBody> responses) {
 
-        if(response != null) {
-
-            weatherData = generateFakeData(response);
-            mRecyclerView.setAdapter(new BasicWeatherAdapter(weatherData));
+        if(responses != null) {
+            mRecyclerView.setAdapter(new BasicWeatherAdapter(responses));
         }
     }
 
@@ -121,15 +118,6 @@ public class MainActivity extends NucleusActionBarActivity {
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
     }
 
-    public ArrayList<ResponseBody> generateFakeData(ResponseBody data){
-
-        ArrayList<ResponseBody> fakeData = new ArrayList<>();
-        for(int index=0; index < 15; index++){
-            fakeData.add(data);
-        }
-        return fakeData;
-    }
-
     private class BasicWeatherClickListener implements View.OnClickListener{
 
         private final Context context;
@@ -150,10 +138,10 @@ public class MainActivity extends NucleusActionBarActivity {
             int selectedItemPosition = mRecyclerView.getChildPosition(view);
             RecyclerView.ViewHolder viewHolder = mRecyclerView.findViewHolderForPosition(selectedItemPosition);
             TextView itemCounterView = (TextView) viewHolder.itemView.findViewById(R.id.itemCounter);
-            ResponseBody cardData = weatherData.get(selectedItemPosition);
+            //ResponseBody cardData = weatherData.get(selectedItemPosition);
 
-            String message = "Card number: " + itemCounterView.getText() + " || Temp: " + cardData.currently.temperature;
-            Toast.makeText(this.context, message, Toast.LENGTH_LONG).show();
+            //String message = "Card number: " + itemCounterView.getText() + " || Temp: " + cardData.currently.temperature;
+            //Toast.makeText(this.context, message, Toast.LENGTH_LONG).show();
         }
     }
 }
