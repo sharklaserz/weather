@@ -1,6 +1,7 @@
-package sharklaserz.weather;
+package sharklaserz.weather.activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -16,7 +17,9 @@ import com.google.android.gms.location.LocationServices;
 import java.util.ArrayList;
 
 import nucleus.presenter.PresenterCreator;
+import sharklaserz.weather.R;
 import sharklaserz.weather.adapters.BasicWeatherAdapter;
+import sharklaserz.weather.base.App;
 import sharklaserz.weather.model.ResponseBody;
 import sharklaserz.weather.presenter.MainPresenter;
 
@@ -24,6 +27,7 @@ public class MainActivity extends NucleusActionBarActivity {
 
     public static View.OnClickListener cardClickListener;
     private static RecyclerView mRecyclerView;
+    public ArrayList<ResponseBody> weatherData;
 
     @Override
     protected PresenterCreator<MainPresenter> getPresenterCreator() {
@@ -86,6 +90,7 @@ public class MainActivity extends NucleusActionBarActivity {
 
     public void publishItems(ArrayList<ResponseBody> responses) {
 
+        weatherData = responses;
         if(responses != null) {
             mRecyclerView.setAdapter(new BasicWeatherAdapter(responses));
         }
@@ -138,10 +143,35 @@ public class MainActivity extends NucleusActionBarActivity {
             int selectedItemPosition = mRecyclerView.getChildPosition(view);
             RecyclerView.ViewHolder viewHolder = mRecyclerView.findViewHolderForPosition(selectedItemPosition);
             TextView itemCounterView = (TextView) viewHolder.itemView.findViewById(R.id.itemCounter);
-            //ResponseBody cardData = weatherData.get(selectedItemPosition);
+            ResponseBody cardData = weatherData.get(selectedItemPosition);
 
-            //String message = "Card number: " + itemCounterView.getText() + " || Temp: " + cardData.currently.temperature;
-            //Toast.makeText(this.context, message, Toast.LENGTH_LONG).show();
+            //Display a Toast with the card information selected.
+            String message = "Card number: " + itemCounterView.getText() + " || Temp: " + cardData.currently.temperature;
+            Toast.makeText(this.context, message, Toast.LENGTH_LONG).show();
+
+            //Create Intent for Detailed weather activity, and attach the weather data for selected card.
+            Intent detailedWeatherIntent = new Intent(App.getAppContext(), DetailedWeatherActivity.class);
+            detailedWeatherIntent.putExtra("WeatherData", cardData);
+            startActivity(detailedWeatherIntent);
         }
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,7 +1,8 @@
 package sharklaserz.weather.model;
 
+import java.io.Serializable;
 
-public class Currently extends BasicWeather {
+public class Currently extends BasicWeather implements Serializable {
 
     public int nearestStormDistance;
     public int nearestStormBearing;

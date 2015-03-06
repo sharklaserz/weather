@@ -1,7 +1,8 @@
 package sharklaserz.weather.model;
 
+import java.io.Serializable;
 
-public class DailyData extends BasicWeather {
+public class DailyData extends BasicWeather implements Serializable {
 
     public long sunriseTime;
     public long sunsetTime;
