@@ -86,11 +86,10 @@ public class WeatherLoader extends Loader<ArrayList<ResponseBody>> {
                 @Override
                 public void success(ResponseBody responseBody, Response response) {
 
-                    WeatherLoader theLoader = WeatherLoader.getInstance();
-                    theLoader.responseList.add(responseBody);
+                    responseList.add(responseBody);
 
-                    if(theLoader.responseList.size() == theLoader.responseListSize) {
-                        notifyReceivers(theLoader.responseList);
+                    if(responseList.size() == responseListSize) {
+                        notifyReceivers(responseList);
                     }
                 }
 
