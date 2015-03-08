@@ -14,6 +14,7 @@ import sharklaserz.weather.R;
 import sharklaserz.weather.base.App;
 import sharklaserz.weather.loader.LogBroker;
 import sharklaserz.weather.loader.WeatherLoader;
+import sharklaserz.weather.model.ResponseBody;
 import sharklaserz.weather.model.WeatherLocation;
 
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -23,6 +24,8 @@ import com.google.android.gms.common.api.GoogleApiClient.OnConnectionFailedListe
 import com.google.android.gms.location.LocationServices;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Map;
 
 
@@ -31,6 +34,7 @@ public class MainPresenter extends Presenter<MainActivity> implements Connection
     WeatherLoader weatherLoader = WeatherLoader.getInstance();
 
     private final String TAG = "Main_Presenter";
+    ArrayList<WeatherLocation> locationsFromPreference = new ArrayList<>();
     protected GoogleApiClient googleApiClient;
 
     protected Location locationData;
@@ -44,7 +48,8 @@ public class MainPresenter extends Presenter<MainActivity> implements Connection
         addViewBroker(new LoaderBroker<MainActivity>(weatherLoader) {
             @Override
             protected void onPresent(MainActivity target) {
-                target.publishItems(!isLoadingComplete() ? null : getData(weatherLoader));
+                ArrayList<ResponseBody> sortedResponses = sortResponses(getData(weatherLoader));
+                target.publishItems(!isLoadingComplete() ? null : sortedResponses);
             }
         });
     }
@@ -79,36 +84,30 @@ public class MainPresenter extends Presenter<MainActivity> implements Connection
     @Override
     public void onConnected(Bundle connectionHint) {
 
-        ArrayList<WeatherLocation> weatherLocations = getWeatherLocationsFromPref();
+        getWeatherData();
+    }
 
+    public void getWeatherData() {
+
+        locationsFromPreference.clear();
+        getWeatherLocationsFromPref();
         locationData = LocationServices.FusedLocationApi.getLastLocation(googleApiClient);
+
         if (locationData != null) {
             double latitude = locationData.getLatitude();
             double longitude = locationData.getLongitude();
-            weatherLocations.add(0, new WeatherLocation(latitude, longitude, "Current"));
+            locationsFromPreference.add(new WeatherLocation(latitude, longitude, 0));
         } else {
             App.reportError(App.getAppContext().getResources().getString(R.string.no_location_detected));
         }
 
-        weatherLoader.getCurrentWeatherList(weatherLocations);
+        weatherLoader.getCurrentWeatherList(locationsFromPreference);
     }
 
-    private ArrayList<WeatherLocation> getWeatherLocationsFromPref() {
-
-        ArrayList<WeatherLocation> locations = new ArrayList<>();
+    private void getWeatherLocationsFromPref() {
 
         Context context = App.getAppContext();
         SharedPreferences sharedPref = App.getAppContext().getSharedPreferences(context.getResources().getString(R.string.weather_location_file), context.MODE_PRIVATE);
-
-        // Fake creating data until permanent solution exists
-        // TODO: Add ability to sort list by proper order
-        SharedPreferences.Editor editor = sharedPref.edit();
-        editor.putString("San Francisco", "37.775,-122.4183");
-        editor.putString("Athens", "37.9833,23.7333");
-        editor.putString("New York", "40.7127,-74.0059");
-        editor.putString("Orlando", "28.5383,-81.3792");
-        editor.putString("London", "51.5073,-0.1277");
-        editor.commit();
 
         Map<String, ?> allEntries = sharedPref.getAll();
         for (Map.Entry<String, ?> entry : allEntries.entrySet()) {
@@ -117,10 +116,39 @@ public class MainPresenter extends Presenter<MainActivity> implements Connection
             double latitude = Double.parseDouble(parts[0]);
             double longitude = Double.parseDouble(parts[1]);
 
-            locations.add(new WeatherLocation(latitude, longitude, entry.getKey().toString()));
+            locationsFromPreference.add(new WeatherLocation(latitude, longitude, Integer.parseInt(entry.getKey())) );
+        }
+    }
+
+    private ArrayList<ResponseBody> sortResponses(ArrayList<ResponseBody> responses) {
+
+        ArrayList<ResponseBody> sortedList = new ArrayList<>();
+
+        // Sort locations list from preference file
+        Collections.sort(locationsFromPreference, new Comparator<WeatherLocation>() {
+            @Override
+            public int compare(WeatherLocation loc1, WeatherLocation loc2) {
+                return loc1.order - loc2.order;
+            }
+        });
+
+        // Sort response list based on order from locations preference list
+        for (int i = 0; i < locationsFromPreference.size(); i++) {
+            WeatherLocation savedLocation = locationsFromPreference.get(i);
+
+            for(int j = 0; j < responses.size(); j++) {
+                Double responseLatitude = responses.get(j).latitude;
+                Double responseLongitude = responses.get(j).longitude;
+
+                if ((savedLocation.latitude == responseLatitude) && (savedLocation.longitude == responseLongitude)) {
+                    sortedList.add(savedLocation.order, responses.get(j));
+                    responses.remove(j);
+                    break;
+                }
+            }
         }
 
-        return locations;
+        return sortedList;
     }
 
     @Override
