@@ -32,6 +32,10 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="sharklaserz.weather.activity.MainActivity" />
         </activity>
+        <activity
+            android:name=".activity.AddLocationActivity"
+            android:label="@string/title_activity_add_location" >
+        </activity>
     </application>
 
 </manifest>
