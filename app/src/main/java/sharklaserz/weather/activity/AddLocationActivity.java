@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -58,7 +57,6 @@ public class AddLocationActivity extends NucleusActionBarActivity {
         editor.putString("" + (currentLocNumber + 1), locationPool.get(locationChosen));
         editor.apply();
 
-        Log.d("ADDLOC", "LEAVING Add Location Activity");
         startActivity(new Intent(App.getAppContext(), MainActivity.class));
     }
 }

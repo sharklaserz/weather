@@ -11,8 +11,6 @@ import com.squareup.okhttp.OkHttpClient;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -25,7 +23,6 @@ import retrofit.client.Response;
 import sharklaserz.weather.R;
 import sharklaserz.weather.base.App;
 import sharklaserz.weather.model.ResponseBody;
-import sharklaserz.weather.model.WeatherLocation;
 
 public class WeatherLoader extends Loader<ArrayList<ResponseBody>> {
 
@@ -126,12 +123,9 @@ public class WeatherLoader extends Loader<ArrayList<ResponseBody>> {
 
     public void getCurrentWeatherList(String currentLocation) {
 
-        //if (locationsFromPreference == null) {
-            getWeatherLocationsFromPref();
-            locationsFromPreference.put(0, currentLocation);
-        //} else {
-        //    locationsFromPreference.put(0, currentLocation);
-        //}
+        //TODO: Register on saved preference changed handler
+        getWeatherLocationsFromPref();
+        locationsFromPreference.put(0, currentLocation);
 
         responseList.clear();
         responseListSize = locationsFromPreference.size();
@@ -150,7 +144,6 @@ public class WeatherLoader extends Loader<ArrayList<ResponseBody>> {
                     if(responseList.size() == responseListSize) {
                         WeatherLoader weatherLoader = WeatherLoader.getInstance();
                         weatherLoader.sortResponses();
-                        Log.d("Size", "---RES Notifty Size = " + responseList.size());
                         notifyReceivers(responseList);
                     }
                 }

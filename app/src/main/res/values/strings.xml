@@ -9,9 +9,9 @@
     <string name="zipcode_hint">Zip Code</string>
     <string name="city_hint">City</string>
     <string name="btn_add_location">Add Location</string>
+    <string name="title_activity_add_location">AddLocationActivity</string>
 
     <!--Error Messages -->
     <string name="no_location_detected">Location not found, please check GPS</string>
-    <string name="title_activity_add_location">AddLocationActivity</string>
 
 </resources>

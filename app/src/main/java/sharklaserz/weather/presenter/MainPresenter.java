@@ -106,6 +106,6 @@ public class MainPresenter extends Presenter<MainActivity> implements Connection
         // attempt to re-establish the connection.
         //TODO: Add logic to determine if we should attempt to restablish connection.
         Log.i(TAG, "Connection suspended");
-        //googleApiClient.connect();
+        googleApiClient.connect();
     }
 }
