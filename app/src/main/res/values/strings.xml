@@ -6,6 +6,10 @@
     <string name="weather_location_file">com.sharklaserz.weather.locations</string>
     <string name="title_activity_detailed_weather">DetailedWeatherActivity</string>
     <string name="action_new_location">Add New Location</string>
+    <string name="zipcode_hint">Zip Code</string>
+    <string name="city_hint">City</string>
+    <string name="btn_add_location">Add Location</string>
+    <string name="title_activity_add_location">AddLocationActivity</string>
 
     <!--Error Messages -->
     <string name="no_location_detected">Location not found, please check GPS</string>

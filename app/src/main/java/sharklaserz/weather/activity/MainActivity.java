@@ -93,20 +93,7 @@ public class MainActivity extends NucleusActionBarActivity {
 
     public void addNewLocation() {
 
-        Context context = App.getAppContext();
-        SharedPreferences sharedPref = App.getAppContext().getSharedPreferences(context.getResources().getString(R.string.weather_location_file), context.MODE_PRIVATE);
-
-        // Fake creating data until permanent solution exists
-        // TODO: Add ability to sort list by proper order
-        SharedPreferences.Editor editor = sharedPref.edit();
-        editor.putString("1", "37.775,-122.4183");
-        editor.putString("2", "37.9833,23.7333");
-        editor.putString("3", "40.7127,-74.0059");
-        editor.putString("4", "28.5383,-81.3792");
-        editor.putString("5", "51.5073,-0.1277");
-        editor.apply();
-
-        ((MainPresenter)getPresenter()).getWeatherData();
+        startActivity(new Intent(App.getAppContext(), AddLocationActivity.class));
     }
 
     public void publishItems(ArrayList<ResponseBody> responses) {
