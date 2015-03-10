@@ -3,55 +3,90 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:layout_marginBottom="@dimen/standard_small_padding"
     android:tag="cards main container"
-    android:padding="4dp">
+    android:layout_marginLeft="@dimen/standard_small_padding"
+    android:layout_marginRight="@dimen/standard_small_padding">
 
     <android.support.v7.widget.CardView
         xmlns:card_view="http://schemas.android.com/apk/res-auto"
         android:id="@+id/weather_card_view"
-        android:layout_gravity="center"
-        android:layout_width="350dp"
-        android:layout_height="100dp"
-        card_view:cardCornerRadius="4dp"
+        android:layout_gravity="center_vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="160dp"
+        card_view:cardCornerRadius="@dimen/cardview_default_radius"
+        card_view:cardElevation="@dimen/cardview_default_radius"
         android:background="@color/accentColor"
         android:baselineAligned="false">
 
 
-        <GridLayout
-            android:orientation="vertical"
+        <LinearLayout
+            android:layout_margin="@dimen/standard_small_padding"
             android:layout_width="match_parent"
-            android:layout_height="75dp">
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_row="0">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/itemCounter"
+            android:textSize="@dimen/standard_large_type"
+            android:text="Location"
+            android:textIsSelectable="false" />
+
+        <GridLayout
+            android:orientation="horizontal"
+            android:layout_margin="@dimen/standard_tiny_padding"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:columnCount="2">
+
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_gravity="center"
                 android:layout_column="0"
-                android:layout_row="0"
-                android:text="Current Temperature: "
-                android:id="@+id/labelTemp"
-                android:textSize="@dimen/abc_text_size_large_material"
-                android:textIsSelectable="false" />
+                android:layout_columnWeight="50">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_column="1"
-                android:layout_row="0"
-                android:id="@+id/dispTemp"
-                android:textSize="@dimen/abc_text_size_large_material"
-                android:textIsSelectable="false"
-                android:text="Temp" />
+            <ImageView
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:id="@+id/imgWeather"
+                android:layout_gravity="right"
+                android:src="@drawable/partly_cloudy"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_column="0"
-                android:layout_row="1"
-                android:id="@+id/itemCounter"
-                android:textSize="22sp"
-                android:textIsSelectable="false" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_columnWeight="50"
+                android:layout_height="fill_parent"
+                android:layout_gravity="center"
+                android:layout_column="1">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/dispTemp"
+                    android:textSize="@dimen/standard_xlarge_type"
+                    android:textIsSelectable="false"
+                    android:text="70" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Feels Like: 30"
+                    android:id="@+id/dspTheFeels"
+                    android:textSize="@dimen/standard_small_type"
+                    android:textIsSelectable="false" />
+
+            </LinearLayout>
 
         </GridLayout>
+
+        </LinearLayout>
+
     </android.support.v7.widget.CardView>
 
 </LinearLayout>
