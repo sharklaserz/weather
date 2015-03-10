@@ -13,9 +13,9 @@
         android:id="@+id/weather_card_view"
         android:layout_gravity="center_vertical"
         android:layout_width="fill_parent"
-        android:layout_height="160dp"
+        android:layout_height="152dp"
         card_view:cardCornerRadius="@dimen/cardview_default_radius"
-        card_view:cardElevation="@dimen/cardview_default_radius"
+        card_view:cardElevation="@dimen/cardview_default_elevation"
         android:background="@color/accentColor"
         android:baselineAligned="false">
 
@@ -27,63 +27,78 @@
             android:orientation="vertical"
             android:layout_row="0">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/itemCounter"
-            android:textSize="@dimen/standard_large_type"
-            android:text="Location"
-            android:textIsSelectable="false" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/itemCounter"
+                android:textSize="@dimen/standard_large_type"
+                android:text="Location"
+                android:textIsSelectable="false" />
 
-        <GridLayout
-            android:orientation="horizontal"
-            android:layout_margin="@dimen/standard_tiny_padding"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:columnCount="2">
+                <GridLayout
+                    android:orientation="horizontal"
+                    android:layout_margin="@dimen/standard_tiny_padding"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:columnCount="2">
 
 
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_gravity="center"
-                android:layout_column="0"
-                android:layout_columnWeight="50">
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_gravity="center"
+                        android:layout_column="0"
+                        android:layout_columnWeight="50">
 
-            <ImageView
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:id="@+id/imgWeather"
-                android:layout_gravity="right"
-                android:src="@drawable/partly_cloudy"/>
+                        <ImageView
+                            android:layout_width="fill_parent"
+                            android:layout_height="fill_parent"
+                            android:id="@+id/imgWeather"
+                            android:layout_gravity="right"
+                            android:src="@drawable/partly_cloudy"/>
 
-            </LinearLayout>
+                    </LinearLayout>
 
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_columnWeight="50"
-                android:layout_height="fill_parent"
-                android:layout_gravity="center"
-                android:layout_column="1">
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_columnWeight="50"
+                        android:layout_height="fill_parent"
+                        android:layout_gravity="center"
+                        android:layout_column="1">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/dispTemp"
-                    android:textSize="@dimen/standard_xlarge_type"
-                    android:textIsSelectable="false"
-                    android:text="70" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/dispTemp"
+                            android:textSize="@dimen/standard_xlarge_type"
+                            android:textIsSelectable="false"
+                            android:text="70" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Feels Like: 30"
-                    android:id="@+id/dspTheFeels"
-                    android:textSize="@dimen/standard_small_type"
-                    android:textIsSelectable="false" />
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:layout_gravity="center">
 
-            </LinearLayout>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Feels Like: "
+                                android:id="@+id/lblTheFeels"
+                                android:textSize="@dimen/standard_small_type"
+                                android:textIsSelectable="false" />
 
-        </GridLayout>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="30"
+                                android:id="@+id/dspTheFeels"
+                                android:textSize="@dimen/standard_small_type"
+                                android:textIsSelectable="false" />
+
+                        </LinearLayout>
+                </LinearLayout>
+
+            </GridLayout>
 
         </LinearLayout>
 
