@@ -24,6 +24,7 @@
             fab:fab_colorPressed="@color/accentColorAlt"
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
+            android:onClick="addNewLocation"
             android:layout_margin="@dimen/standard_medium_padding"/>
 
             <!--fab:fab_colorRipple="@color/ripple"-->
