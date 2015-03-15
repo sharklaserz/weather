@@ -36,8 +36,10 @@ public class BasicWeatherAdapter extends RecyclerView.Adapter<BasicWeatherAdapte
 
         TextView temperatureTextView = holder.currentTemperatureTextView;
         TextView cardNumberTextView = holder.cardNumberTextView;
+        TextView feelsLikeView = holder.feelsLikeView;
 
-        temperatureTextView.setText("" + weatherData.get(listPosition).currently.temperature);
+        temperatureTextView.setText("" + Math.round( weatherData.get(listPosition).currently.temperature) + "\u00b0");
+        feelsLikeView.setText("" + Math.round( weatherData.get(listPosition).currently.apparentTemperature ) + "\u00b0");
         cardNumberTextView.setText("" + (listPosition+1));
     }
 
@@ -51,13 +53,14 @@ public class BasicWeatherAdapter extends RecyclerView.Adapter<BasicWeatherAdapte
 
         TextView currentTemperatureTextView;
         TextView cardNumberTextView;
-        ResponseBody cardData;
+        TextView feelsLikeView;
 
         public BasicWeatherViewHolder(View itemView){
 
             super(itemView);
             this.currentTemperatureTextView = (TextView) itemView.findViewById(R.id.dispTemp);
             this.cardNumberTextView = (TextView) itemView.findViewById(R.id.itemCounter);
+            this.feelsLikeView = (TextView) itemView.findViewById(R.id.dspTheFeels);
         }
     }
 }
