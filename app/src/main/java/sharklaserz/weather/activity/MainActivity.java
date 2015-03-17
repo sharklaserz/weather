@@ -70,8 +70,7 @@ public class MainActivity extends NucleusActionBarActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
 
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
+        return false;
     }
 
     @Override
@@ -82,18 +81,12 @@ public class MainActivity extends NucleusActionBarActivity {
         // as you specify a parent activity in AndroidManifest.xml.
 
         //noinspection SimplifiableIfStatement
-        switch (item.getItemId()) {
-            case R.id.action_add_location:
-                addNewLocation();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
+        return false;
     }
 
-    public void addNewLocation() {
+    public void addNewLocation(View view) {
 
-        startActivity(new Intent(App.getAppContext(), AddLocationActivity.class));
+        startActivity(new Intent(view.getContext(), AddLocationActivity.class));
     }
 
     public void publishItems(ArrayList<ResponseBody> responses) {
