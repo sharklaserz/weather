@@ -9,6 +9,9 @@
     <color name="accentColor">#FFEA00</color>
     <color name="accentColorAlt">#FFD600</color>
 
+    <!-- Text app color definitions -->
+    <color name="textColorWhite">#FFFFFF</color>
+
     <!-- Accent app color definitions -->
     <color name="ripple">#424242</color>
 </resources>

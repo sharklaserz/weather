@@ -1,21 +1,35 @@
 package sharklaserz.weather.activity;
 
 import android.content.Intent;
+import android.graphics.Point;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Display;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ExpandableListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import org.w3c.dom.Text;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
 import nucleus.presenter.PresenterCreator;
 import sharklaserz.weather.R;
+import sharklaserz.weather.adapters.ExpandableRecyclerAdapter;
 import sharklaserz.weather.model.ResponseBody;
 import sharklaserz.weather.presenter.DetailedWeatherPresenter;
 
 public class DetailedWeatherActivity extends NucleusActionBarActivity {
+
+    ExpandableRecyclerAdapter listAdapter;
+    ExpandableListView expListView;
+    List<String> listDataHeader;
+    HashMap<String, List<String>> listDataChild;
 
     @Override
     protected PresenterCreator<DetailedWeatherPresenter> getPresenterCreator(){
@@ -42,6 +56,29 @@ public class DetailedWeatherActivity extends NucleusActionBarActivity {
 
         //Set the values for the textview.
         cardInfoView.setText("Temperature: " + responseBody.currently.temperature);
+
+        //setup expandable recycler view
+        // get the listview
+        expListView = (ExpandableListView) findViewById(R.id.expandableRecyclerView);
+
+        // preparing list data
+        prepareListData();
+
+        listAdapter = new ExpandableRecyclerAdapter(this, listDataHeader, listDataChild);
+
+        // setting list adapter
+        expListView.setAdapter(listAdapter);
+
+        //set height of banner
+        Display display = getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+        int width = size.x;
+        int height = (width * 2 / 3); //3:2 aspect ratio
+
+        RelativeLayout bannerLayout = (RelativeLayout)this.findViewById(R.id.bannerLayout);
+        bannerLayout.getLayoutParams().width = width;
+        bannerLayout.getLayoutParams().height = height;
     }
 
 
@@ -65,5 +102,32 @@ public class DetailedWeatherActivity extends NucleusActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    /*
+    * Preparing the list data
+    */
+    private void prepareListData() {
+        listDataHeader = new ArrayList<String>();
+        listDataChild = new HashMap<String, List<String>>();
+
+        // Adding future categories
+        listDataHeader.add("Minute by Minute Forecast");
+        listDataHeader.add("Hourly Forecast");
+        listDataHeader.add("14 Day Forecast");
+
+        // Adding child data
+        List<String> minuteChild = new ArrayList<String>();
+        minuteChild.add("minute data");
+
+        List<String> hourlyChild = new ArrayList<String>();
+        hourlyChild.add("Hour data");
+
+        List<String> dailyChild = new ArrayList<String>();
+        dailyChild.add("daily data");
+
+        listDataChild.put(listDataHeader.get(0), minuteChild); // Header, Child data
+        listDataChild.put(listDataHeader.get(1), hourlyChild);
+        listDataChild.put(listDataHeader.get(2), dailyChild);
     }
 }
