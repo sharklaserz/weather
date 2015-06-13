@@ -1,8 +1,99 @@
 <?xml version="1.0" encoding="utf-8"?>
-<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="240dp"
+        android:id="@+id/bannerLayout">
+
+        <View
+            android:id="@+id/overlay"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:background="@drawable/chicago_night"
+            android:backgroundTintMode="multiply"
+            android:backgroundTint="@color/primaryColorLight"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentBottom="true"
+            android:orientation="horizontal"
+            android:layout_marginLeft="@dimen/standard_medium_padding"
+            android:layout_marginRight="@dimen/standard_medium_padding"
+            android:layout_marginBottom="@dimen/standard_medium_padding"
+            android:id="@+id/bannerHeading">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_weight="1"
+                android:gravity="bottom">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left|bottom"
+                    android:id="@+id/bannerTemp"
+                    android:text="80°"
+                    android:textColor="@color/textColorWhite"
+                    android:textSize="@dimen/standard_huge_type"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left|bottom"
+                    android:id="@+id/bannerFeel"
+                    android:text="Feels Like: 70°"
+                    android:textColor="@color/textColorWhite"
+                    android:textSize="@dimen/standard_small_type"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_weight="1"
+                android:gravity="bottom">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right|bottom"
+                    android:id="@+id/bannerWind"
+                    android:text="NNE 12 mph"
+                    android:textColor="@color/textColorWhite"
+                    android:textSize="@dimen/standard_small_type"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right|bottom"
+                    android:id="@+id/bannerHumidity"
+                    android:text="Humidity: 34%"
+                    android:textColor="@color/textColorWhite"
+                    android:textSize="@dimen/standard_small_type"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+
+        <ExpandableListView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/expandableRecyclerView"
+            android:layout_weight="1"
+            android:indicatorLeft="?android:attr/expandableListPreferredItemIndicatorLeft"/>
+    </LinearLayout>
+
 
     <TextView
         android:layout_width="match_parent"
@@ -14,4 +105,5 @@
         android:textIsSelectable="false"
         />
 
-</GridLayout>
+
+</LinearLayout>

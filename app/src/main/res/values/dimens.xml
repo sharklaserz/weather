@@ -7,7 +7,7 @@
     <dimen name="standard_tiny_padding">4dp</dimen>
 
     <!-- Standard material text sizes for mobile -->
-    <dimen name="standard_huge_type">112sp</dimen>
+    <dimen name="standard_huge_type">56sp</dimen>
     <dimen name="standard_xlarge_type">45sp</dimen>
     <dimen name="standard_large_type">34sp</dimen>
     <dimen name="standard_medium_type">24sp</dimen>
